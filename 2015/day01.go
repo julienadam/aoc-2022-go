@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/julienadam/adventofcode2022/puzzleData"
+	"github.com/julienadam/adventofcode2022/puzzleLoader"
 )
 
 func findFinalFloor(input string) int {
@@ -38,7 +38,7 @@ func findBasementInstructionIndex(input string) int {
 }
 
 func SolvePart1() {
-	input, err := puzzleData.LoadString(2015, 1, puzzleData.Real)
+	input, err := puzzleLoader.LoadString(2015, 1, puzzleLoader.Real)
 	if err != nil {
 		log.Fatalf("Could not load data %s", err)
 	} else {
@@ -48,7 +48,7 @@ func SolvePart1() {
 }
 
 func SolvePart2() {
-	input, err := puzzleData.LoadString(2015, 1, puzzleData.Real)
+	input, err := puzzleLoader.LoadString(2015, 1, puzzleLoader.Real)
 	if err != nil {
 		log.Fatalf("Could not load data %s", err)
 	} else {

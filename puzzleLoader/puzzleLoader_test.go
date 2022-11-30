@@ -1,4 +1,4 @@
-package puzzleData
+package puzzleLoader
 
 import (
 	"testing"
