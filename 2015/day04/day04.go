@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"fmt"
 	"sync"
+	"sync/atomic"
 )
 
 func hashHas5Zeroes(input string) bool {
@@ -28,40 +29,40 @@ func hashHas6Zeroes(input string) bool {
 	return hash[0] == 0 && hash[1] == 0 && hash[2] == 0
 }
 
-func threadMiner(input string, start int, step int, wg *sync.WaitGroup, result *int, stop *bool) {
-	i := start
+func threadMiner(input string, wg *sync.WaitGroup, current *int64, stop *bool) {
+	defer wg.Done()
 	for {
 		if *stop {
 			break
 		}
+		i := atomic.AddInt64(current, 1)
 		if hashHas6Zeroes(fmt.Sprintf("%s%d", input, i)) {
-			*result = i
-			wg.Done()
+			fmt.Print(i)
+			*stop = true
 			break
 		}
-		i += step
 	}
 }
 
-func mineAdventCoinAdvanced(input string) int {
+func mineAdventCoinAdvanced(input string) {
 	var wg sync.WaitGroup
-	wg.Add(1)
+	const THREADS = 8
+	wg.Add(THREADS)
 	found := false
-	result := 0
+	current := int64(0)
 
-	for i := 0; i < 8; i++ {
-		go threadMiner(input, i, 8, &wg, &result, &found)
+	for i := 0; i < THREADS; i++ {
+		go threadMiner(input, &wg, &current, &found)
 	}
 
 	wg.Wait()
 	found = true
-	return result
 }
 
 func LoadAndSolvePart1() int {
 	return mineAdventCoin("iwrupvqb")
 }
 
-func LoadAndSolvePart2() int {
-	return mineAdventCoinAdvanced("iwrupvqb")
+func LoadAndSolvePart2() {
+	mineAdventCoinAdvanced("iwrupvqb")
 }
