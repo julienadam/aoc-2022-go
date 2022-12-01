@@ -3,6 +3,7 @@ package day04
 import (
 	"crypto/md5"
 	"fmt"
+	"strconv"
 	"sync"
 	"sync/atomic"
 )
@@ -36,7 +37,8 @@ func threadMiner(input string, wg *sync.WaitGroup, current *int64, stop *bool) {
 			break
 		}
 		i := atomic.AddInt64(current, 1)
-		if hashHas6Zeroes(fmt.Sprintf("%s%d", input, i)) {
+		hashInput := input + strconv.Itoa(int(i))
+		if hashHas6Zeroes(hashInput) {
 			fmt.Print(i)
 			*stop = true
 			break
