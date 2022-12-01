@@ -10,7 +10,7 @@ import (
 func main() {
 
 	sw := stopwatch.Start()
-	result := day06.LoadAndSolvePart1()
+	result := day06.LoadAndSolvePart2()
 	sw.Stop()
 	fmt.Printf("%d\nDone in %dms", result, sw.Milliseconds())
 }

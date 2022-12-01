@@ -82,3 +82,48 @@ func Test_turn_all_on_means_a_million_lights_are_on(t *testing.T) {
 	applyInstructions(&grid, []Instruction{instr})
 	assert.Equal(t, 1000000, countLightsOn(grid))
 }
+
+func Test_increase_0_0_through_0_0_add_1_to_the_top_left_pixel_brightness(t *testing.T) {
+	grid := [1000][1000]int{}
+	increaseThrough(&grid, 0, 0, 0, 0)
+
+	assert.Equal(t, 1, grid[0][0])
+	assert.Equal(t, 0, grid[0][1])
+	assert.Equal(t, 0, grid[1][0])
+}
+
+func Test_increase_more_0_0_through_0_0_add_2_to_the_top_left_pixel_brightness(t *testing.T) {
+	grid := [1000][1000]int{}
+	increaseMoreThrough(&grid, 0, 0, 0, 0)
+
+	assert.Equal(t, 2, grid[0][0])
+	assert.Equal(t, 0, grid[0][1])
+	assert.Equal(t, 0, grid[1][0])
+}
+
+func Test_decrease_0_0_through_0_0_does_nothing_if_top_left_pixel_is_off(t *testing.T) {
+	grid := [1000][1000]int{}
+	decreaseThrough(&grid, 0, 0, 0, 0)
+
+	assert.Equal(t, 0, grid[0][0])
+	assert.Equal(t, 0, grid[0][1])
+	assert.Equal(t, 0, grid[1][0])
+}
+
+func Test_decrease_0_0_through_0_0_decreases_to1_if_top_left_pixel_is_2(t *testing.T) {
+	grid := [1000][1000]int{}
+	grid[0][0] = 2
+	decreaseThrough(&grid, 0, 0, 0, 0)
+
+	assert.Equal(t, 1, grid[0][0])
+	assert.Equal(t, 0, grid[0][1])
+	assert.Equal(t, 0, grid[1][0])
+}
+
+func Test_toggle_all_on_means_brightness_is_2000000(t *testing.T) {
+	input := "toggle 0,0 through 999,999"
+	instr := parseInstruction(input)
+	grid := [1000][1000]int{}
+	applyUpdatedInstructions(&grid, []Instruction{instr})
+	assert.Equal(t, 2000000, countBrightness(grid))
+}

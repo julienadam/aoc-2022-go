@@ -101,18 +101,78 @@ func countLightsOn(grid [1000][1000]bool) int {
 	return count
 }
 
-func LoadAndSolvePart1() int {
+func loadInstructions() []Instruction {
 	input, err := puzzleLoader.LoadLines(2015, 06, puzzleLoader.Real)
 	if err != nil {
 		log.Fatal("Could not load data")
 	}
 
-	instructions := lo.Map(input, func(line string, index int) Instruction {
+	return lo.Map(input, func(line string, index int) Instruction {
 		return parseInstruction(line)
 	})
+}
 
+func LoadAndSolvePart1() int {
+	instructions := loadInstructions()
 	grid := [1000][1000]bool{}
-
 	applyInstructions(&grid, instructions)
 	return countLightsOn(grid)
+}
+
+func increaseThrough(grid *[1000][1000]int, x1 int, y1 int, x2 int, y2 int) {
+	for x := x1; x <= x2; x++ {
+		for y := y1; y <= y2; y++ {
+			grid[x][y]++
+		}
+	}
+}
+
+func decreaseThrough(grid *[1000][1000]int, x1 int, y1 int, x2 int, y2 int) {
+	for x := x1; x <= x2; x++ {
+		for y := y1; y <= y2; y++ {
+			if grid[x][y] > 0 {
+				grid[x][y]--
+			}
+		}
+	}
+}
+
+func increaseMoreThrough(grid *[1000][1000]int, x1 int, y1 int, x2 int, y2 int) {
+	for x := x1; x <= x2; x++ {
+		for y := y1; y <= y2; y++ {
+			grid[x][y] += 2
+		}
+	}
+}
+
+func applyUpdatedInstructions(grid *[1000][1000]int, instructions []Instruction) {
+	for _, instr := range instructions {
+		switch instr.Action {
+		case on:
+			increaseThrough(grid, instr.X1, instr.Y1, instr.X2, instr.Y2)
+		case off:
+			decreaseThrough(grid, instr.X1, instr.Y1, instr.X2, instr.Y2)
+		case toggle:
+			increaseMoreThrough(grid, instr.X1, instr.Y1, instr.X2, instr.Y2)
+		}
+	}
+}
+
+func countBrightness(grid [1000][1000]int) int {
+	count := 0
+	for x := 0; x < 1000; x++ {
+		for y := 0; y < 1000; y++ {
+			count += grid[x][y]
+		}
+	}
+
+	return count
+}
+
+func LoadAndSolvePart2() int {
+	instructions := loadInstructions()
+	grid := [1000][1000]int{}
+
+	applyUpdatedInstructions(&grid, instructions)
+	return countBrightness(grid)
 }
