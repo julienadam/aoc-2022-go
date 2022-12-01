@@ -8,7 +8,7 @@ import (
 	"gotest.tools/v3/assert"
 )
 
-const simpleSampleInput = `1000\r\n\r\n2000\r\n3000`
+const simpleSampleInput = "1000\r\n\r\n2000\r\n3000"
 
 func Test_splitSingleElfItems(t *testing.T) {
 	result := splitSingleElfItems("1000\r\n2000")

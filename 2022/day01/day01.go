@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/julienadam/adventofcode2022/puzzleLoader"
+	"github.com/samber/lo"
 )
 
 func splitByElf(input string) []string {
@@ -36,30 +37,20 @@ func splitAll(input string) [][]int {
 	return result
 }
 
-func Sum(ints []int) int {
-	sum := 0
-	for _, val := range ints {
-		sum += val
-	}
-	return sum
-}
-
 func getMaxCalories(input [][]int) int {
-	max := 0
-	for _, calories := range input {
-		sum := Sum(calories)
-		if sum > max {
-			max = sum
-		}
-	}
-	return max
+	sums := lo.Map(input, func(item []int, index int) int {
+		return lo.Sum(item)
+	})
+	return lo.Max(sums)
 }
 
 func getSumOf3BestCalories(input [][]int) int {
 	var podium = []int{0, 0, 0}
 
+	// Keeping this one manual as it will probably be faster than doing a sort + take 3
+	// equivalent with lo.
 	for _, calories := range input {
-		sum := Sum(calories)
+		sum := lo.Sum(calories)
 		if sum >= podium[0] {
 			podium = []int{sum, podium[0], podium[1]}
 		} else if sum >= podium[1] {
@@ -68,7 +59,7 @@ func getSumOf3BestCalories(input [][]int) int {
 			podium = []int{podium[0], podium[1], sum}
 		}
 	}
-	return Sum(podium)
+	return lo.Sum(podium)
 }
 
 func part1(input string) int {
