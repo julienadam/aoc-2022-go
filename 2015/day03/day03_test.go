@@ -21,7 +21,6 @@ func Test_back_and_forth_visits_2(t *testing.T) {
 	assert.Equal(t, 2, visited)
 }
 
-
 func Test_up_down_with_robo_santa_visits_3(t *testing.T) {
 	visited := deliverWithRoboSanta("^v")
 	assert.Equal(t, 3, visited)
