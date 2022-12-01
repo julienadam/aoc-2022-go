@@ -1,4 +1,6 @@
 github.com/assertgo/assert v2.0.0+incompatible/go.mod h1:Q0oju7wAPpvkNFeAyzJQlOhiqW9UYVbxTN/CK2bEEpU=
+github.com/bradhe/stopwatch v0.0.0-20190618212248-a58cccc508ea h1:+GIgqdjrcKMHK1JqC1Bb9arFtNOGX/SWCkueobreyQU=
+github.com/bradhe/stopwatch v0.0.0-20190618212248-a58cccc508ea/go.mod h1:P/j2DSP/kCOakHBACzMqmOdrTEieqdSiB3U9fqk7qgc=
 github.com/google/go-cmp v0.5.5 h1:Khx7svrCpmxxtHBq5j2mp/xVjsi8hQMfNLvJFAlrGgU=
 github.com/google/go-cmp v0.5.5/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
