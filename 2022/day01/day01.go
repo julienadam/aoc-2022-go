@@ -55,16 +55,44 @@ func getMaxCalories(input [][]int) int {
 	return max
 }
 
+func getSumOf3BestCalories(input [][]int) int {
+	var podium = []int{0, 0, 0}
+
+	for _, calories := range input {
+		sum := Sum(calories)
+		if sum >= podium[0] {
+			podium = []int{sum, podium[0], podium[1]}
+		} else if sum >= podium[1] {
+			podium = []int{podium[0], sum, podium[1]}
+		} else if sum >= podium[2] {
+			podium = []int{podium[0], podium[1], sum}
+		}
+	}
+	return Sum(podium)
+}
+
 func part1(input string) int {
 	return getMaxCalories(splitAll(input))
 }
 
-func LoadAndSolvePart1() int {
+func part2(input string) int {
+	return getSumOf3BestCalories(splitAll(input))
+}
 
+func LoadAndSolvePart1() int {
 	input, err := puzzleLoader.LoadString(2022, 1, puzzleLoader.Real)
 	if err != nil {
 		log.Fatalf("Invalid input")
 	}
 
 	return part1(input)
+}
+
+func LoadAndSolvePart2() int {
+	input, err := puzzleLoader.LoadString(2022, 1, puzzleLoader.Real)
+	if err != nil {
+		log.Fatalf("Invalid input")
+	}
+
+	return part2(input)
 }

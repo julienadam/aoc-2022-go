@@ -41,8 +41,20 @@ func Test_simple_sample_returns_5000(t *testing.T) {
 	assert.Equal(t, 5000, result)
 }
 
-func Test_sample1_returns_24000(t *testing.T) {
+func Test_sample1_returns_24000_for_the_top_caloried_elf(t *testing.T) {
 	input, _ := puzzleLoader.ReadAllText(filepath.Join("data", "day01_sample1.txt"))
 	result := part1(input)
 	assert.Equal(t, 24000, result)
+}
+
+func Test_getSumOf3BestCalories(t *testing.T) {
+
+	result := getSumOf3BestCalories([][]int{{1, 2}, {3, 4}, {5, 6}, {7, 8}})
+	assert.Equal(t, 3+4+5+6+7+8, result)
+}
+
+func Test_sample1_returns_45000_for_the_top_3_caloried_elves(t *testing.T) {
+	input, _ := puzzleLoader.ReadAllText(filepath.Join("data", "day01_sample1.txt"))
+	result := part2(input)
+	assert.Equal(t, 45000, result)
 }

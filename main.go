@@ -7,5 +7,10 @@ import (
 )
 
 func main() {
-	fmt.Printf("%d\n", day01.LoadAndSolvePart1())
+	fmt.Printf("%d\n", day01.LoadAndSolvePart2())
 }
+
+
+/*
+
+*/
