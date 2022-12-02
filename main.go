@@ -4,13 +4,13 @@ import (
 	"fmt"
 
 	"github.com/bradhe/stopwatch"
-	"github.com/julienadam/adventofcode2022/2015/day06"
+	"github.com/julienadam/adventofcode2022/2022/day02"
 )
 
 func main() {
 
 	sw := stopwatch.Start()
-	result := day06.LoadAndSolvePart2()
+	result := day02.LoadAndSolvePart1()
 	sw.Stop()
 	fmt.Printf("%d\nDone in %dms", result, sw.Milliseconds())
 }
