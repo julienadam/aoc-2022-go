@@ -93,3 +93,61 @@ func LoadAndSolvePart1() int {
 
 	return scoreAllRounds(input)
 }
+
+func charToStrategy(char rune) round {
+	switch char {
+	case 'X':
+		return loss
+	case 'Y':
+		return draw
+	case 'Z':
+		return win
+	default:
+		log.Fatalf("Invalid strategy %c", char)
+		return -1
+	}
+}
+
+func parseRoundAdvanced(input string) (rps, round) {
+	return charToRps(rune(input[0])), charToStrategy(rune(input[2]))
+}
+
+func scoreForOpponentAndAdvancedStrategy(opponent rps, strategy round) int {
+	if strategy == draw {
+		return int(draw) + int(opponent)
+	} else if strategy == loss {
+		switch opponent {
+		case rock:
+			return int(scissors)
+		case paper:
+			return int(rock)
+		case scissors:
+			return int(paper)
+		}
+	} else {
+		switch opponent {
+		case rock:
+			return int(win) + int(paper)
+		case paper:
+			return int(win) + int(scissors)
+		case scissors:
+			return int(win) + int(rock)
+		}
+	}
+	return 0
+}
+
+func scoreAllRoundsAdvanced(input []string) int {
+	return lo.SumBy(input, func(line string) int {
+		return scoreForOpponentAndAdvancedStrategy(parseRoundAdvanced(line))
+	})
+}
+
+func LoadAndSolvePart2() int {
+	input, err := puzzleLoader.LoadLines(2022, 02, puzzleLoader.Real)
+	if err != nil {
+		log.Fatalf("Could not load data")
+	}
+
+	return scoreAllRoundsAdvanced(input)
+}
