@@ -1,6 +1,7 @@
 package day07
 
 import (
+	"fmt"
 	"log"
 	"strconv"
 	"strings"
@@ -90,5 +91,15 @@ func loadInstructions() map[string]string {
 
 func LoadAndSolvePart1() int {
 	layout := loadInstructions()
+	return int(findSignalForWire("a", layout, make(map[string]uint16)))
+}
+
+func LoadAndSolvePart2() int {
+	layout := loadInstructions()
+	// run once to get the value for "a"
+	a := findSignalForWire("a", layout, make(map[string]uint16))
+	// override "b" with value from "a" found just above
+	layout["b"] = fmt.Sprintf("%d", a)
+	// run again with the modified input
 	return int(findSignalForWire("a", layout, make(map[string]uint16)))
 }
