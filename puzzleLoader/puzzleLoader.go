@@ -55,7 +55,7 @@ const (
 )
 
 func getFileName(year int, day int, input AoCInput) string {
-	return filepath.Join(fmt.Sprint(year), fmt.Sprintf("day%02d", day), "data", fmt.Sprintf("day%02d%s.txt", day, input))
+	return filepath.Join(fmt.Sprint(year), fmt.Sprintf("day%02d", day), fmt.Sprintf("day%02d%s.txt", day, input))
 }
 
 // Load input puzzle data lines as a string slice
