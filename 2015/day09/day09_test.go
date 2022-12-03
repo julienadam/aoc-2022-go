@@ -48,3 +48,13 @@ func Test_sample_shortest_dist_was_605(t *testing.T) {
 	distances, locs := loadData(input)
 	assert.Equal(t, 605, FindShortestPath(locs, distances))
 }
+
+func Test_sample_max_dist_was_982(t *testing.T) {
+	input := []string{
+		"London to Dublin = 464",
+		"London to Belfast = 518",
+		"Dublin to Belfast = 141",
+	}
+	distances, locs := loadData(input)
+	assert.Equal(t, 982, FindLongestPath(locs, distances))
+}

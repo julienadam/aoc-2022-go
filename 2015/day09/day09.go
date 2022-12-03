@@ -50,7 +50,7 @@ func pathDistance(locs []int, dists map[int]int) int {
 }
 
 func printLocs(locs []int, dist int) {
-	fmt.Printf("new min found")
+	fmt.Printf("New best route found : ")
 	for _, i := range locs {
 		fmt.Printf("%d ->", i)
 	}
@@ -107,4 +107,27 @@ func LoadAndSolvePart1() int {
 
 	distances, locs := loadData(input)
 	return FindShortestPath(locs, distances)
+}
+
+func FindLongestPath(locs []int, segments map[int]int) int {
+	max := 0
+	EnumeratePermutations(locs, func(perm []int) {
+		dist := pathDistance(locs, segments)
+		if dist > max {
+			printLocs(locs, dist)
+			max = dist
+		}
+	})
+
+	return max
+}
+
+func LoadAndSolvePart2() int {
+	input, err := puzzleLoader.LoadLines(2015, 9, puzzleLoader.Real)
+	if err != nil {
+		log.Fatal("Could not load data")
+	}
+
+	distances, locs := loadData(input)
+	return FindLongestPath(locs, distances)
 }
