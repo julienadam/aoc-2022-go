@@ -48,5 +48,50 @@ func Test_sum_of_priorities_for_sample_is_157(t *testing.T) {
 	}
 
 	assert.Equal(t, 157, SumOfPriorities(sampleRucksacks))
+}
 
+// Part 2
+
+func Test_can_find_badge_in_group(t *testing.T) {
+	group := []string{
+		"vJrwpWtwJgWrhcsFMMfFFhFp",
+		"jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
+		"PmmdzqPrVvPwwTWBwg"}
+
+	assert.Equal(t, 'r', FindBadge(group))
+}
+
+func Test_can_make_groups_of_3_rucksacks(t *testing.T) {
+	sampleRucksacks := []string{
+		"vJrwpWtwJgWrhcsFMMfFFhFp",
+		"jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
+		"PmmdzqPrVvPwwTWBwg",
+		"wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
+		"ttgJtRGJQctTZtZT",
+		"CrZsJsPPZsGzwwsLwLmpwMDw",
+	}
+
+	groups := GroupRuckSacks(sampleRucksacks)
+	assert.Equal(t, 2, len(groups))
+	assert.DeepEqual(t, groups[0], []string{
+		"vJrwpWtwJgWrhcsFMMfFFhFp",
+		"jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
+		"PmmdzqPrVvPwwTWBwg"})
+		assert.DeepEqual(t, groups[1], []string{
+		"wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
+		"ttgJtRGJQctTZtZT",
+		"CrZsJsPPZsGzwwsLwLmpwMDw"})
+}
+
+func Test_sum_of_priorities_for_badges_sample_is_70(t *testing.T) {
+	sampleRucksacks := []string{
+		"vJrwpWtwJgWrhcsFMMfFFhFp",
+		"jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
+		"PmmdzqPrVvPwwTWBwg",
+		"wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
+		"ttgJtRGJQctTZtZT",
+		"CrZsJsPPZsGzwwsLwLmpwMDw",
+	}
+
+	assert.Equal(t, 70, SumOfBadgePriorities(sampleRucksacks))
 }
