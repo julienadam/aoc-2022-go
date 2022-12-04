@@ -2,31 +2,28 @@ package day04
 
 import (
 	"github.com/julienadam/adventofcode2022/puzzleLoader"
+	"github.com/julienadam/adventofcode2022/util"
 	"github.com/samber/lo"
 	"log"
 	"strconv"
 	"strings"
 )
 
-func isRangeCompletelyInsideOtherRange(a int, b int, c int, d int) bool {
-	return (c >= a && d <= b) || (c <= a && d >= b)
-}
-
-func parseRange(s string) (int, int, int, int) {
+func parseRanges(s string) (util.Range[int], util.Range[int]) {
 	pairs := strings.Split(s, ",")
 	pairA := strings.Split(pairs[0], "-")
 	pairB := strings.Split(pairs[1], "-")
-
 	a, _ := strconv.Atoi(pairA[0])
 	b, _ := strconv.Atoi(pairA[1])
 	c, _ := strconv.Atoi(pairB[0])
 	d, _ := strconv.Atoi(pairB[1])
-	return a, b, c, d
+	return util.Range[int]{a, b}, util.Range[int]{c, d}
 }
 
 func findCompletelyOverlappingPairs(input []string) int {
 	return lo.CountBy(input, func(line string) bool {
-		return isRangeCompletelyInsideOtherRange(parseRange(line))
+		r1, r2 := parseRanges(line)
+		return r1.ContainsOrIsContainedIn(r2)
 	})
 }
 
@@ -39,13 +36,10 @@ func LoadAndSolvePart1() int {
 	return findCompletelyOverlappingPairs(input)
 }
 
-func isRangeOverlappingRange(a int, b int, c int, d int) bool {
-	return a <= d && b >= c
-}
-
 func findPartiallyOverlappingPairs(input []string) int {
 	return lo.CountBy(input, func(line string) bool {
-		return isRangeOverlappingRange(parseRange(line))
+		r1, r2 := parseRanges(line)
+		return r1.Overlaps(r2)
 	})
 }
 
